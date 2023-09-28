@@ -1,12 +1,8 @@
 package com.lucas.DesafioBackend.repository;
 
-import com.lucas.DesafioBackend.model.cliente.Cliente;
 import com.lucas.DesafioBackend.model.cliente.PessoaFisica;
 import com.lucas.DesafioBackend.model.cliente.PessoaJuridica;
-import lombok.Builder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,12 +49,12 @@ public class InMemoryClientRepository {
         return foundPerson.get(0);
     }
 
-    public boolean add(PessoaFisica payload) {
+    public PessoaFisica add(PessoaFisica payload) {
         List<PessoaFisica> foundPerson = registeredPhysicalClients.stream().filter((o) ->
                 o.getCpf().equals(payload.getCpf())).toList();
 
         if (!foundPerson.isEmpty()) {
-            return false;
+            return null;
         }
 
         var pessoaFisica = new PessoaFisica(
@@ -68,27 +64,27 @@ public class InMemoryClientRepository {
                 payload.getMcc());
 
         registeredPhysicalClients.add(pessoaFisica);
-        return true;
+        return pessoaFisica;
     }
 
-    public boolean add(PessoaJuridica payload) {
+    public PessoaJuridica add(PessoaJuridica payload) {
         for (var cliente : registeredLegalClients) {
             if (cliente.getCnpj().equals(payload.getCnpj())) {
-                return false;
+                return null;
             }
         }
 
         payload.setUuid(UUID.randomUUID());
         registeredLegalClients.add(payload);
-        return true;
+        return payload;
     }
 
-    public boolean update(String uuid, PessoaFisica payload) {
+    public PessoaFisica update(String uuid, PessoaFisica payload) {
         List<PessoaFisica> foundPerson = registeredPhysicalClients.stream().filter((o) ->
                 o.getUuid().equals(UUID.fromString(uuid))).toList();
 
         if (foundPerson.isEmpty()) {
-            return false;
+            return null;
         }
 
         var person = foundPerson.get(0);
@@ -99,15 +95,15 @@ public class InMemoryClientRepository {
 
         registeredPhysicalClients.remove(person);
         registeredPhysicalClients.add(person);
-        return true;
+        return person;
     }
 
-    public boolean update(String uuid, PessoaJuridica payload) {
+    public PessoaJuridica update(String uuid, PessoaJuridica payload) {
         List<PessoaJuridica> foundPerson = registeredLegalClients.stream().filter((o) ->
                 o.getUuid().equals(UUID.fromString(uuid))).toList();
 
         if (foundPerson.isEmpty()) {
-            return false;
+            return null;
         }
 
         PessoaJuridica person = foundPerson.get(0);
@@ -119,7 +115,7 @@ public class InMemoryClientRepository {
 
         registeredLegalClients.remove(person);
         registeredLegalClients.add(person);
-        return true;
+        return person;
     }
 
     public boolean delete(String uuid) {

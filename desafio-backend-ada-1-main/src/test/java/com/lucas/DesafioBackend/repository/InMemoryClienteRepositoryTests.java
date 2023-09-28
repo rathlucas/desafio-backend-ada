@@ -79,7 +79,7 @@ public class InMemoryClienteRepositoryTests {
     }
 
     @Test
-    public void add_legalPerson_shoudReturnFalseIfExists() {
+    public void add_legalPerson_shoudReturnNullIfExists() {
 
         PessoaJuridica pessoaJuridica = new PessoaJuridica(
                 "48851791813",
@@ -91,12 +91,12 @@ public class InMemoryClienteRepositoryTests {
 
         inMemoryClientRepository.add(pessoaJuridica);
         var result = inMemoryClientRepository.add(pessoaJuridica);
-        assertThat(result).isFalse();
+        assertThat(result).isNull();
         inMemoryClientRepository.clear();
     }
 
     @Test
-    public void update_physicalPerson_shouldReturnFalseIfNotFound() {
+    public void update_physicalPerson_shouldReturnNullIfNotFound() {
 
         PessoaFisica pessoaFisica = new PessoaFisica(
                 "48851791813",
@@ -107,12 +107,12 @@ public class InMemoryClienteRepositoryTests {
         var result = inMemoryClientRepository.update(pessoaFisica.getUuid().toString(),
                 pessoaFisica);
 
-        assertThat(result).isFalse();
+        assertThat(result).isNull();
         inMemoryClientRepository.clear();
     }
 
     @Test
-    public void update_legalPerson_shouldReturnFalseIfNotFound() {
+    public void update_legalPerson_shouldReturnNullIfNotFound() {
 
         PessoaJuridica pessoaJuridica = new PessoaJuridica(
                 "48851791815",
@@ -125,12 +125,12 @@ public class InMemoryClienteRepositoryTests {
         var result = inMemoryClientRepository.update(pessoaJuridica.getUuid().toString(),
                 pessoaJuridica);
 
-        assertThat(result).isFalse();
+        assertThat(result).isNull();
         inMemoryClientRepository.clear();
     }
 
     @Test
-    public void update_legalPerson_shouldReturnTrueIfIsSuccess() {
+    public void update_legalPerson_shouldReturnPersonIfIsSuccess() {
 
         PessoaJuridica pessoaJuridica = new PessoaJuridica(
                 "48851791815",
@@ -145,7 +145,7 @@ public class InMemoryClienteRepositoryTests {
         var result = inMemoryClientRepository.update(pessoaJuridica.getUuid().toString(),
                 pessoaJuridica);
 
-        assertThat(result).isTrue();
+        assertThat(result).isNotNull();
         inMemoryClientRepository.clear();
     }
 }

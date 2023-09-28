@@ -116,7 +116,7 @@ public class ClienteControllerTests {
     @Test
     public void post_pessoaJuridica_shouldReturn400IfExists() throws Exception {
 
-        when(clienteService.registerLegalPerson(any())).thenReturn(false);
+        when(clienteService.registerLegalPerson(any())).thenReturn(null);
         mockMvc.perform(
                         MockMvcRequestBuilders
                                 .post("/api/v1/clientes/pessoa-juridica/cadastrar")
@@ -128,7 +128,7 @@ public class ClienteControllerTests {
     @Test
     public void post_pessoaJuridica_shouldReturn201WhenCreated() throws Exception {
 
-        when(clienteService.registerLegalPerson(any())).thenReturn(true);
+        when(clienteService.registerLegalPerson(any())).thenReturn(pessoaJuridica);
         mockMvc.perform(
                         MockMvcRequestBuilders
                                 .post("/api/v1/clientes/pessoa-juridica/cadastrar")
@@ -140,7 +140,7 @@ public class ClienteControllerTests {
     @Test
     public void put_pessoaJuridica_shouldReturn404IfDoesntExist() throws Exception {
 
-        when(clienteService.updateLegalPerson(any(), any())).thenReturn(false);
+        when(clienteService.updateLegalPerson(any(), any())).thenReturn(null);
         mockMvc.perform(
                         MockMvcRequestBuilders
                                 .put("/api/v1/clientes/pessoa-juridica/atualizar/{uuid}",
@@ -153,7 +153,7 @@ public class ClienteControllerTests {
     @Test
     public void put_pessoaJuridica_shouldReturn200IfUpdated() throws Exception {
 
-        when(clienteService.updateLegalPerson(any(), any())).thenReturn(true);
+        when(clienteService.updateLegalPerson(any(), any())).thenReturn(pessoaJuridica);
         mockMvc.perform(
                         MockMvcRequestBuilders
                                 .put("/api/v1/clientes/pessoa-juridica/atualizar/{uuid}",
@@ -166,7 +166,7 @@ public class ClienteControllerTests {
     @Test
     public void post_pessoaFisica_shouldReturn400IfExists() throws Exception {
 
-        when(clienteService.registerPhysicalPerson(any())).thenReturn(false);
+        when(clienteService.registerPhysicalPerson(any())).thenReturn(null);
         mockMvc.perform(
                         MockMvcRequestBuilders
                                 .post("/api/v1/clientes/pessoa-fisica/cadastrar")
@@ -178,7 +178,7 @@ public class ClienteControllerTests {
     @Test
     public void post_pessoaFisica_shouldReturn201WhenCreated() throws Exception {
 
-        when(clienteService.registerPhysicalPerson(any())).thenReturn(true);
+        when(clienteService.registerPhysicalPerson(any())).thenReturn(pessoaFisica);
         mockMvc.perform(
                         MockMvcRequestBuilders
                                 .post("/api/v1/clientes/pessoa-fisica/cadastrar")
@@ -190,7 +190,7 @@ public class ClienteControllerTests {
     @Test
     public void put_pessoaFisica_shouldReturn404IfDoesntExist() throws Exception {
 
-        when(clienteService.updatePhysicalPerson(any(), any())).thenReturn(false);
+        when(clienteService.updatePhysicalPerson(any(), any())).thenReturn(null);
         mockMvc.perform(
                         MockMvcRequestBuilders
                                 .put("/api/v1/clientes/pessoa-fisica/atualizar/{uuid}",
@@ -203,7 +203,7 @@ public class ClienteControllerTests {
     @Test
     public void put_pessoaFisica_shouldReturn200IfUpdated() throws Exception {
 
-        when(clienteService.updatePhysicalPerson(any(), any())).thenReturn(true);
+        when(clienteService.updatePhysicalPerson(any(), any())).thenReturn(pessoaFisica);
         mockMvc.perform(
                         MockMvcRequestBuilders
                                 .put("/api/v1/clientes/pessoa-fisica/atualizar/{uuid}",
