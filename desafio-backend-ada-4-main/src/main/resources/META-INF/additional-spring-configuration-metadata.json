@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "sqs.queue.name",
+      "type": "java.lang.String",
+      "description": "Nome da fila SQS criada na AWS."
+  }
+] }
