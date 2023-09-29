@@ -16,9 +16,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 public class InMemoryClienteRepositoryTests {
 
-    @Autowired
-    InMemoryClientRepository inMemoryClientRepository;
-
     private final PessoaJuridica pessoaJuridica = new PessoaJuridica(
             "48851791813",
             "lucin",
@@ -26,12 +23,13 @@ public class InMemoryClienteRepositoryTests {
             "1234",
             "12345678909876",
             "Teste Eireli");
-
     private final PessoaFisica pessoaFisica = new PessoaFisica(
             "48851791813",
             "lucin",
             "lucin189@gmail.com",
             "1234");
+    @Autowired
+    InMemoryClientRepository inMemoryClientRepository;
 
     @Test
     public void findAllPhysical_shouldReturnEmptyListWhenNotFound() {
@@ -78,43 +76,43 @@ public class InMemoryClienteRepositoryTests {
     }
 
     @Test
-    public void add_legalPerson_shouldReturnFalseIfExists() {
+    public void add_legalPerson_shouldReturnNullIfExists() {
 
         inMemoryClientRepository.add(pessoaJuridica);
         var result = inMemoryClientRepository.add(pessoaJuridica);
-        assertThat(result).isFalse();
+        assertThat(result).isNull();
         inMemoryClientRepository.clear();
     }
 
     @Test
-    public void update_physicalPerson_shouldReturnFalseIfNotFound() {
+    public void update_physicalPerson_shouldReturnNullIfNotFound() {
 
         var result = inMemoryClientRepository.update(pessoaFisica.getUuid().toString(),
                 pessoaFisica);
 
-        assertThat(result).isFalse();
+        assertThat(result).isNull();
         inMemoryClientRepository.clear();
     }
 
     @Test
-    public void update_legalPerson_shouldReturnFalseIfNotFound() {
+    public void update_legalPerson_shouldReturnNullIfNotFound() {
 
         var result = inMemoryClientRepository.update(pessoaJuridica.getUuid().toString(),
                 pessoaJuridica);
 
-        assertThat(result).isFalse();
+        assertThat(result).isNull();
         inMemoryClientRepository.clear();
     }
 
     @Test
-    public void update_legalPerson_shouldReturnTrueIfIsSuccess() {
+    public void update_legalPerson_shouldReturnPersonIfIsSuccess() {
 
         inMemoryClientRepository.add(pessoaJuridica);
 
         var result = inMemoryClientRepository.update(pessoaJuridica.getUuid().toString(),
                 pessoaJuridica);
 
-        assertThat(result).isTrue();
+        assertThat(result).isNotNull();
         inMemoryClientRepository.clear();
     }
 }

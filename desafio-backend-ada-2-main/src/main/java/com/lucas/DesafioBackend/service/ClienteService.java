@@ -33,19 +33,19 @@ public class ClienteService {
         return inMemoryClientRepository.findLegalBy(uuid);
     }
 
-    public boolean registerPhysicalPerson(PessoaFisica payload) {
+    public PessoaFisica registerPhysicalPerson(PessoaFisica payload) {
         return inMemoryClientRepository.add(payload);
     }
 
-    public boolean updatePhysicalPerson(String uuid, PessoaFisica payload) {
+    public PessoaFisica updatePhysicalPerson(String uuid, PessoaFisica payload) {
         return inMemoryClientRepository.update(uuid, payload);
     }
 
-    public boolean registerLegalPerson(PessoaJuridica payload) {
+    public PessoaJuridica registerLegalPerson(PessoaJuridica payload) {
         return inMemoryClientRepository.add(payload);
     }
 
-    public boolean updateLegalPerson(String uuid, PessoaJuridica payload) {
+    public PessoaJuridica updateLegalPerson(String uuid, PessoaJuridica payload) {
         return inMemoryClientRepository.update(uuid, payload);
     }
 

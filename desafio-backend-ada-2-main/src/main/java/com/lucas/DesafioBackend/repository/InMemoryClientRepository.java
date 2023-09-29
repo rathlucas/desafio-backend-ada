@@ -58,12 +58,12 @@ public class InMemoryClientRepository {
         return foundPerson.get(0);
     }
 
-    public boolean add(PessoaFisica payload) {
+    public PessoaFisica add(PessoaFisica payload) {
         List<PessoaFisica> foundPerson = registeredPhysicalClients.stream().filter((o) ->
                 o.getCpf().equals(payload.getCpf())).toList();
 
         if (!foundPerson.isEmpty()) {
-            return false;
+            return null;
         }
 
         var pessoaFisica = new PessoaFisica(
@@ -74,28 +74,28 @@ public class InMemoryClientRepository {
 
         registeredPhysicalClients.add(pessoaFisica);
         serviceQueue.enqueue(pessoaFisica);
-        return true;
+        return pessoaFisica;
     }
 
-    public boolean add(PessoaJuridica payload) {
+    public PessoaJuridica add(PessoaJuridica payload) {
         for (var cliente : registeredLegalClients) {
             if (cliente.getCnpj().equals(payload.getCnpj())) {
-                return false;
+                return null;
             }
         }
 
         payload.setUuid(UUID.randomUUID());
         registeredLegalClients.add(payload);
         serviceQueue.enqueue(payload);
-        return true;
+        return payload;
     }
 
-    public boolean update(String uuid, PessoaFisica payload) {
+    public PessoaFisica update(String uuid, PessoaFisica payload) {
         List<PessoaFisica> foundPerson = registeredPhysicalClients.stream().filter((o) ->
                 o.getUuid().equals(UUID.fromString(uuid))).toList();
 
         if (foundPerson.isEmpty()) {
-            return false;
+            return null;
         }
 
         var person = foundPerson.get(0);
@@ -107,15 +107,15 @@ public class InMemoryClientRepository {
         registeredPhysicalClients.remove(person);
         registeredPhysicalClients.add(person);
         serviceQueue.enqueue(person);
-        return true;
+        return person;
     }
 
-    public boolean update(String uuid, PessoaJuridica payload) {
+    public PessoaJuridica update(String uuid, PessoaJuridica payload) {
         List<PessoaJuridica> foundPerson = registeredLegalClients.stream().filter((o) ->
                 o.getUuid().equals(UUID.fromString(uuid))).toList();
 
         if (foundPerson.isEmpty()) {
-            return false;
+            return null;
         }
 
         PessoaJuridica person = foundPerson.get(0);
@@ -128,7 +128,7 @@ public class InMemoryClientRepository {
         registeredLegalClients.remove(person);
         registeredLegalClients.add(person);
         serviceQueue.enqueue(person);
-        return true;
+        return person;
     }
 
     public boolean delete(String uuid) {

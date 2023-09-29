@@ -22,12 +22,6 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringRunner.class)
 public class ClienteServiceTests {
 
-    @Mock
-    private InMemoryClientRepository inMemoryClientRepository;
-
-    @InjectMocks
-    private ClienteService clienteService;
-
     private final PessoaJuridica pessoaJuridica = new PessoaJuridica(
             "48851791813",
             "lucin",
@@ -35,12 +29,15 @@ public class ClienteServiceTests {
             "1234",
             "12345678909876",
             "Teste Eireli");
-
     private final PessoaFisica pessoaFisica = new PessoaFisica(
             "48851791813",
             "lucin",
             "lucin189@gmail.com",
             "1234");
+    @Mock
+    private InMemoryClientRepository inMemoryClientRepository;
+    @InjectMocks
+    private ClienteService clienteService;
 
     @Test
     public void getPhysicalList_shouldReturnEmptyList() {
@@ -111,72 +108,73 @@ public class ClienteServiceTests {
     }
 
     @Test
-    public void registerPhysical_shouldReturnFalseIfExists() {
+    public void registerPhysical_shouldReturnNullIfExists() {
 
         inMemoryClientRepository.add(pessoaFisica);
 
-        when(inMemoryClientRepository.add(any(PessoaFisica.class))).thenReturn(false);
+        when(inMemoryClientRepository.add(any(PessoaFisica.class))).thenReturn(null);
         var result = clienteService.registerPhysicalPerson(pessoaFisica);
-        assertThat(result).isFalse();
+        assertThat(result).isNull();
     }
 
     @Test
-    public void registerPhysical_shouldReturnTrueIfSuccesful() {
+    public void registerPhysical_shouldReturnPersonIfIsSuccesful() {
 
-        when(inMemoryClientRepository.add(any(PessoaFisica.class))).thenReturn(true);
+        when(inMemoryClientRepository.add(any(PessoaFisica.class))).thenReturn(pessoaFisica);
         var result = clienteService.registerPhysicalPerson(pessoaFisica);
-        assertThat(result).isTrue();
+        assertThat(result).isNotNull();
     }
 
     @Test
-    public void updatePhysical_shouldReturnFalseIfDoesntExist() {
+    public void updatePhysical_shouldReturnNullIfDoesntExist() {
 
-        when(inMemoryClientRepository.update(any(), any(PessoaFisica.class))).thenReturn(false);
+        when(inMemoryClientRepository.update(any(), any(PessoaFisica.class))).thenReturn(null);
         var result = clienteService.updatePhysicalPerson(any(), any());
-        assertThat(result).isFalse();
+        assertThat(result).isNull();
     }
 
     @Test
-    public void updatePhysical_shouldReturnTrueIfSuccesful() {
+    public void updatePhysical_shouldReturnPersonIfIsSuccesful() {
 
-        when(inMemoryClientRepository.update(any(), any(PessoaFisica.class))).thenReturn(true);
+        when(inMemoryClientRepository.update(any(), any(PessoaFisica.class))).thenReturn(pessoaFisica);
         var result = clienteService.updatePhysicalPerson(pessoaFisica.getUuid().toString(), pessoaFisica);
-        assertThat(result).isTrue();
+        assertThat(result).isNotNull();
     }
 
     @Test
-    public void registerLegal_shouldReturnFalseIfExists() {
+    public void registerLegal_shouldReturnNullIfExists() {
 
         inMemoryClientRepository.add(pessoaJuridica);
 
-        when(inMemoryClientRepository.add(any(PessoaJuridica.class))).thenReturn(false);
+        when(inMemoryClientRepository.add(any(PessoaJuridica.class))).thenReturn(null);
         var result = clienteService.registerLegalPerson(pessoaJuridica);
-        assertThat(result).isFalse();
+        assertThat(result).isNull();
     }
 
     @Test
-    public void registerLegal_shouldReturnTrueIfSuccesful() {
+    public void registerLegal_shouldReturnPersonIfSuccesful() {
 
-        when(inMemoryClientRepository.add(any(PessoaJuridica.class))).thenReturn(true);
+        when(inMemoryClientRepository.add(any(PessoaJuridica.class))).thenReturn(pessoaJuridica);
         var result = clienteService.registerLegalPerson(pessoaJuridica);
-        assertThat(result).isTrue();
+        assertThat(result).isNotNull();
     }
 
 
     @Test
-    public void updateLegal_shouldReturnFalseIfDoesntExist() {
+    public void updateLegal_shouldReturnNullIfDoesntExist() {
 
-        when(inMemoryClientRepository.update(any(), any(PessoaJuridica.class))).thenReturn(false);
+        when(inMemoryClientRepository.update(any(), any(PessoaJuridica.class))).thenReturn(null);
         var result = clienteService.updateLegalPerson(any(), any());
-        assertThat(result).isFalse();
+        assertThat(result).isNull();
     }
 
     @Test
-    public void updateLegal_shouldReturnTrueIfSuccesful() {
+    public void updateLegal_shouldReturnPersonIfIsSuccesful() {
 
-        when(inMemoryClientRepository.update(any(), any(PessoaJuridica.class))).thenReturn(true);
-        var result = clienteService.updateLegalPerson(pessoaJuridica.getUuid().toString(), pessoaJuridica);
-        assertThat(result).isTrue();
+        when(inMemoryClientRepository.update(any(), any(PessoaJuridica.class))).thenReturn(pessoaJuridica);
+        var result = clienteService.updateLegalPerson(pessoaJuridica
+                .getUuid().toString(), pessoaJuridica);
+        assertThat(result).isNotNull();
     }
 
     @Test
