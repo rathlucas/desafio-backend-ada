@@ -27,7 +27,7 @@ public abstract class Cliente {
     private String nome;
 
     @NotNull(message = "O campo email não pode estar vazio!")
-    @Pattern(regexp = "^([a-zA-Z0-9_\\-.]+)@([a-zA-Z0-9_\\-.]+)\\.([a-zA-Z]{2,5})$",
+    @Pattern(regexp = "^([a-zA-Z0-9_\\-.]+)[^.]@([a-zA-Z0-9_\\-.]+)\\.([a-zA-Z]{2,5})$",
             message = "Email inválido!")
     @Schema(example = "teste@mail.com")
     private String email;
