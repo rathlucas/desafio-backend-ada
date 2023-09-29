@@ -24,3 +24,7 @@
 - O maior débito técnico identificado na aplicação, inclusive sendo uma falha de segurança bem grave, é não exigir autenticação dos usuários que utilizam o sistema. Como são realizados cadastros de pessoas físicas e jurídicas, existe manipulação de dados sensíveis, estes que devem estar de acordo com todos os parâmetros da LGPD (Lei Geral de Proteção de Dados), por exemplo. A falha em guardar corretamente e não expor esses dados pode acarretar em uma multa salgada para a Cielo, o que não é interessante para nenhum dos envolvidos no ocorrido.
 
 - Como resolução para este problema, implementei o sistema de registro, login e logout de usuários internos do sistema utilizando o `Spring Security`. Por motivos de demonstração e simplicidade, optei por realizar todo o processo in-memory, porém é importante ressaltar que em produção estes dados de autenticação estariam sendo persistidos em um banco de dados ou provedor de OAuth/SSO, além de contar com a disponibilização de tokens JWT para manter a comunicação entre o cliente e o servidor Stateless.
+
+## Notas
+
+- As páginas relacionadas à documentação da API não possuem autenticação propositalmente. Porém é possível realizar o teste de login, registro e cadastro de usuário através do Postman, Insomnia ou cliente HTTP parecido.`
