@@ -6,7 +6,7 @@
 
 - Com o servidor rodando, é possível acessar a documentação da API na interface do `Swagger` através da URL: <http://localhost:8080/swagger-ui.html>. Lá estão documentadas as funcionalidades requisitadas no desafio, podendo conferir os valores de entrada, retorno e testar cada um dos endpoints.
 
-## Como Executar os Testes com CobertuA
+## Como Executar os Testes com Cobertura
 
 - Utilizando a `Intellij`, basta clicar com o botão direito do mouse sob o diretório `test` e selecionar a opção `More Run/Debug -> Run '...' With Coverage`.
 
