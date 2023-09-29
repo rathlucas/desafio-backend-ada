@@ -36,7 +36,7 @@ public class ClienteController {
 
     @GetMapping("/pessoa-fisica/{uuid}")
     public ResponseEntity<Object> showPhysicalClient(@PathVariable("uuid") String uuid) {
-        PessoaFisica cliente = clienteService.findPhysicalPerson(uuid);
+        var cliente = clienteService.findPhysicalPerson(uuid);
         if (cliente == null) {
             return new ResponseEntity<>("Cliente não cadastrado no sistema!", HttpStatus.NOT_FOUND);
         }
@@ -46,7 +46,7 @@ public class ClienteController {
 
     @GetMapping("/pessoa-juridica/{uuid}")
     public ResponseEntity<Object> showLegalClient(@PathVariable("uuid") String uuid) {
-        PessoaJuridica cliente = clienteService.findLegalPerson(uuid);
+        var cliente = clienteService.findLegalPerson(uuid);
         if (cliente == null) {
             return new ResponseEntity<>("Cliente não cadastrado no sistema!", HttpStatus.NOT_FOUND);
         }
@@ -56,7 +56,7 @@ public class ClienteController {
 
     @PostMapping("/pessoa-fisica/cadastrar")
     public ResponseEntity<String> registerPhysicalPerson(@Valid @RequestBody PessoaFisica payload) {
-        PessoaFisica result = clienteService.registerPhysicalPerson(payload);
+        var result = clienteService.registerPhysicalPerson(payload);
         if (result == null) {
             return new ResponseEntity<>("Cliente já cadastrado no sistema, o cadastro foi abortado!",
                     HttpStatus.BAD_REQUEST);
@@ -75,7 +75,7 @@ public class ClienteController {
     @PutMapping("/pessoa-fisica/atualizar/{uuid}")
     public ResponseEntity<String> updatePhysicalPerson(@PathVariable("uuid") String uuid,
                                                        @Valid @RequestBody PessoaFisica payload) {
-        PessoaFisica result = clienteService.updatePhysicalPerson(uuid, payload);
+        var result = clienteService.updatePhysicalPerson(uuid, payload);
         if (result == null) {
             return new ResponseEntity<>("Cliente não cadastrado no sistema, a atualização foi abortada!",
                     HttpStatus.NOT_FOUND);
@@ -92,7 +92,7 @@ public class ClienteController {
 
     @PostMapping("/pessoa-juridica/cadastrar")
     public ResponseEntity<String> registerLegalPerson(@Valid @RequestBody PessoaJuridica payload) {
-        PessoaJuridica result = clienteService.registerLegalPerson(payload);
+        var result = clienteService.registerLegalPerson(payload);
         if (result == null) {
             return new ResponseEntity<>("Empresa já cadastrada no sistema, o cadastro foi abortado!",
                     HttpStatus.BAD_REQUEST);
@@ -110,7 +110,7 @@ public class ClienteController {
     @PutMapping("/pessoa-juridica/atualizar/{uuid}")
     public ResponseEntity<String> updateLegalPerson(@PathVariable("uuid") String uuid,
                                                     @Valid @RequestBody PessoaJuridica payload) {
-        PessoaJuridica result = clienteService.updateLegalPerson(uuid, payload);
+        var result = clienteService.updateLegalPerson(uuid, payload);
         if (result == null) {
             return new ResponseEntity<>("Empresa não cadastrada no sistema, a atualização foi abortada!",
                     HttpStatus.NOT_FOUND);
